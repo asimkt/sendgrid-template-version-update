@@ -4,15 +4,6 @@ inputs:
   api-key:
     description: 'sendgrid api key for authorization'
     required: true
-  template-version:
-    description: 'template-id-version-id'
-    required: true
-  template-content:
-    description: 'html content'
-    required: true
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
 runs:
   using: 'node12'
   main: 'dist/index.js'
