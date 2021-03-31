@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/asimkt/sendgrid-template-version-update/issues"
   },
-  "homepage": "https://github.com/asimkt/sendgrid-template-version-update#readme"
+  "homepage": "https://github.com/asimkt/sendgrid-template-version-update#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0"
+  }
 }
