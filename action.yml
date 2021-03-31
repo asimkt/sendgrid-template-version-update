@@ -1,0 +1,17 @@
+name: 'Sendgrid template version update'
+description: 'Sendgrid template version update'
+inputs:
+  who-to-greet:  # id of input
+    description: 'Who to greet'
+    required: true
+    default: 'World'
+  id-content-map:
+    description: 'template-id-version-id and html content map'
+    required: true
+    default: '{}'
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'node12'
+  main: 'index.js'
