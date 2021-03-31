@@ -13,10 +13,17 @@ try {
     console.log(templateVersionId);
 
     const dist = 'dist';
+
+    var fullPath2 = path.join(dist, '/index.html');
+    var fileContent2 = fs.readFileSync(fullPath2, "utf8");
+    console.log(fileContent2);
+
+    
     var fullPath = path.join(dist, '/template-version-id-content-map.json');
     var fileContent = fs.readFileSync(fullPath, "utf8");
-
     console.log(fileContent);
+
+
     var options = {
         "method": "PATCH",
         "hostname": "api.sendgrid.com",
