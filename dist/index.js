@@ -16,13 +16,13 @@ try {
   console.log(`API KEY: ${apiKey}!`);
 
   const idMap = core.getInput('id-content-map');
-  const map = JSON.stringify(idMap);
+  const map = JSON.parse(idMap);
   console.log(`the map is`, Object.keys(map));
   const time = (new Date()).toTimeString();
   core.setOutput("time", time);
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log(`The event payload: ${payload}`);
+//   console.log(`The event payload: ${payload}`);
  
 
   var options = {
