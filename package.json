@@ -1,0 +1,20 @@
+{
+  "name": "sendgrid-template-version-update",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asimkt/sendgrid-template-version-update.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asimkt/sendgrid-template-version-update/issues"
+  },
+  "homepage": "https://github.com/asimkt/sendgrid-template-version-update#readme"
+}
