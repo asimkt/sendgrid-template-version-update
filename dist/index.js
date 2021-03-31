@@ -7,6 +7,8 @@ module.exports =
 
 const core = __nccwpck_require__(127);
 const github = __nccwpck_require__(134);
+const http = __nccwpck_require__(211);
+
 
 try {
   // `who-to-greet` input defined in action metadata file
@@ -21,27 +23,38 @@ try {
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload, undefined, 2)
   console.log(`The event payload: ${payload}`);
-  
-  var data = JSON.stringify({
-    "active": 1,
-    "name": "updated2_example_name",
-    "html_content": "<div>some2</div>"
-  });
-  
-  var xhr = new XMLHttpRequest();
-  xhr.withCredentials = true;
-  
-  xhr.addEventListener("readystatechange", function () {
-    if (this.readyState === this.DONE) {
-      console.log(this.responseText);
+ 
+
+  var options = {
+    "method": "PATCH",
+    "hostname": "api.sendgrid.com",
+    "port": null,
+    "path": "/v3/templates/d-56675e6e4d5849baaf482c909361ce73/versions/f5b752f1-289d-4bf9-a6be-774102d4d567",
+    "headers": {
+      "authorization": `Bearer ${apiKey}`,
+      "content-type": "application/json"
     }
+  };
+  
+  var req = http.request(options, function (res) {
+    var chunks = [];
+  
+    res.on("data", function (chunk) {
+      chunks.push(chunk);
+    });
+  
+    res.on("end", function () {
+      var body = Buffer.concat(chunks);
+      console.log(body.toString());
+    });
   });
   
-  xhr.open("PATCH", "https://api.sendgrid.com/v3/templates/d-56675e6e4d5849baaf482c909361ce73/versions/f5b752f1-289d-4bf9-a6be-774102d4d567");
-  xhr.setRequestHeader("authorization", `Bearer ${apiKey}`);
-  xhr.setRequestHeader("content-type", "application/json");
-  
-  xhr.send(data);
+  req.write(JSON.stringify({ active: 1,
+    name: 'updated2_example_name',
+    html_content: '<div>some2</div>' }));
+  req.end();
+
+
 } catch (error) {
   core.setFailed(error.message);
 }
