@@ -1,7 +1,8 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const http = require("https");
-
+const fs = require("fs");
+const path = require("path");
 
 try {
     // `who-to-greet` input defined in action metadata file
@@ -10,6 +11,12 @@ try {
     const templateContent = core.getInput('template-content');
     
     console.log(templateVersionId);
+
+    const dist = 'dist';
+    var fullPath = path.join(dist, '/template-version-id-content-map.json');
+    var fileContent = fs.readFileSync(fullPath, "utf8");
+
+    console.log(fileContent);
     var options = {
         "method": "PATCH",
         "hostname": "api.sendgrid.com",
