@@ -4,8 +4,11 @@ inputs:
   api-key:
     description: 'sendgrid api key for authorization'
     required: true
-  id-content-map:
-    description: 'template-id-version-id and html content map'
+  template-version:
+    description: 'template-id-version-id'
+    required: true
+  template-content:
+    description: 'html content'
     required: true
 outputs:
   time: # id of output
