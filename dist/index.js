@@ -12,53 +12,46 @@ const fs = __nccwpck_require__(747);
 const path = __nccwpck_require__(622);
 
 try {
-    // `who-to-greet` input defined in action metadata file
     const apiKey = core.getInput('api-key');
-    const templateVersionId = core.getInput('template-version');
-    const templateContent = core.getInput('template-content');
-    
-    console.log(templateVersionId);
-
     const dist = 'dist';
 
-    var fullPath2 = path.join(dist, '/index.html');
-    var fileContent2 = fs.readFileSync(fullPath2, "utf8");
-    console.log(fileContent2);
+    const fullPath = path.join(dist, '/template-version-id-content-map.json');
+    const fileContent = fs.readFileSync(fullPath, "utf8");
 
-    
-    var fullPath = path.join(dist, '/template-version-id-content-map.json');
-    var fileContent = fs.readFileSync(fullPath, "utf8");
-    console.log(fileContent);
+    const map = JSON.parse(fileContent);
 
 
-    var options = {
-        "method": "PATCH",
-        "hostname": "api.sendgrid.com",
-        "port": null,
-        "path": `/v3/templates/${templateVersionId}`,
-        "headers": {
-            "authorization": `Bearer ${apiKey}`,
-            "content-type": "application/json"
-        }
-    };
+    Object.keys(map).forEach(function(templateVersionId) {
+        var options = {
+            "method": "PATCH",
+            "hostname": "api.sendgrid.com",
+            "port": null,
+            "path": `/v3/templates/${templateVersionId}`,
+            "headers": {
+                "authorization": `Bearer ${apiKey}`,
+                "content-type": "application/json"
+            }
+        };
 
-    var req = http.request(options, function (res) {
-        var chunks = [];
+        var req = http.request(options, function (res) {
+            var chunks = [];
 
-        res.on("data", function (chunk) {
-            chunks.push(chunk);
+            res.on("data", function (chunk) {
+                chunks.push(chunk);
+            });
+
+            res.on("end", function () {
+                var body = Buffer.concat(chunks);
+                console.log(body.toString());
+            });
         });
 
-        res.on("end", function () {
-            var body = Buffer.concat(chunks);
-            console.log(body.toString());
-        });
-    });
+        req.write(JSON.stringify({
+            html_content: map[templateVersionId]
+        }));
+        req.end();  
+    })
 
-    req.write(JSON.stringify({
-        html_content: templateContent
-    }));
-    req.end();  
 } catch (error) {
     core.setFailed(error.message);
 }
