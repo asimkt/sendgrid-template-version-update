@@ -14,7 +14,9 @@ try {
     const map = JSON.parse(fileContent);
 
 
+    console.log('template keys', Object.keys(map))
     Object.keys(map).forEach(function(templateVersionId) {
+        console.log('running patch for ', templateVersionId)
         var options = {
             "method": "PATCH",
             "hostname": "api.sendgrid.com",
