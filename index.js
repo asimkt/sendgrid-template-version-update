@@ -37,7 +37,7 @@ try {
 
             res.on("end", function () {
                 var body = Buffer.concat(chunks);
-                console.log("api done", body.toString());
+                console.log("api done for ", templateVersionId, 'with response', body.toString());
             });
         });
 
