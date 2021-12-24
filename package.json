@@ -1,6 +1,6 @@
 {
   "name": "sendgrid-template-version-update",
-  "version": "1.2",
+  "version": "1.20",
   "description": "",
   "main": "index.js",
   "scripts": {
